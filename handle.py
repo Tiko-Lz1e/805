@@ -19,7 +19,7 @@ class Handle(object):
             if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
                 toUser = recMsg.FormUserName
                 fromUser = recMsg.ToUserName
-                content = alloter.ContentMaker(receive.Msg.Content)
+                content = alloter.ContentMaker(recMsg.Content)
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
             else:
