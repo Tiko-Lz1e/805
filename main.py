@@ -5,10 +5,10 @@ from handle import Handle
 import config
 
 urls = (
-	'/wx', 'Handle',
+    '/wx', 'Handle',
 )
 
 if __name__ == '__main__':
-	app = web.application(urls, globals())
-	app.run()
+    app = web.application(urls, globals())
+    app.run()
 

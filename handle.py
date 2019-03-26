@@ -6,6 +6,7 @@ import reply
 import receive
 import web
 import config
+import contents.alloter as alloter
 
 
 class Handle(object):
@@ -18,7 +19,7 @@ class Handle(object):
             if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
                 toUser = recMsg.FormUserName
                 fromUser = recMsg.ToUserName
-                content = "test"
+                content = alloter.ContentMaker(receive.Msg.Content)
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
             else:
