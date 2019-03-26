@@ -1,10 +1,11 @@
 # config.py
 import config_default
+import pandas
 
 configs = config_default.configs
 
 try:
     import config_override
-    configs = configs.merge(configs, config_override.configs)
+    configs['Token'] = config_override.configs['Token']
 except ImportError:
     pass

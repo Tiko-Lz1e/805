@@ -36,7 +36,7 @@ class Handle(object):
             timestamp = data.timestamp
             nonce = data.nonce
             echostr = data.echostr
-            token = config.configs.Token
+            token = config.configs['Token']
 
             list = [token, timestamp, nonce]
             list.sort()
