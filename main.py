@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # filename: main.py
 import web
-import handle
+from handle import Handle
 import config
 
 urls = (
