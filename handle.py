@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 # filename: handle.py
 
+import reply
 import web
 import config
 import contents.alloter as alloter
@@ -17,9 +18,7 @@ class Handle(object):
             print "Handle Post webdata is ", webData
             # write log
             recMsg = parse_message(webData)
-            reply = TextReply(alloter.ContentMaker(recMsg), message=recMsg)
-            xml = reply.render()
-            return xml.send()
+            return reply.ReplyType(recMsg)
         except Exception, Argument:
             return Argument
 

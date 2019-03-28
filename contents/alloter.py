@@ -21,6 +21,9 @@ def ContentMaker(recmsg):
             content = ''
             hw_file = open('contents/homework3.txt')
             content += hw_file.read()
+        if message == '课程表':
+            content = 'Du0cncQvn_h-zkuhRXqsIPjYbj0oUK44enQOea8WFLJa3DQa74uIT1CWSHsX_vqf'
+
         return content
     else:
         return "I cannot do it."
