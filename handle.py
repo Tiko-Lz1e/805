@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
 # filename: handle.py
 
-import hashlib
-import reply
-import receive
 import web
 import config
 import contents.alloter as alloter
+from wechatpy.utils import check_signature
+from wechatpy.exceptions import InvalidSignatureException
+from wechatpy import parse_message
+from wechatpy.replies import TextReply
 
 
 class Handle(object):
@@ -15,16 +16,10 @@ class Handle(object):
             webData = web.data()
             print "Handle Post webdata is ", webData
             # write log
-            recMsg = receive.parse_xml(webData)
-            if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
-                toUser = recMsg.FormUserName
-                fromUser = recMsg.ToUserName
-                content = alloter.ContentMaker(recMsg.Content)
-                replyMsg = reply.TextMsg(toUser, fromUser, content)
-                return replyMsg.send()
-            else:
-                print "do it later"
-                return "success"
+            recMsg = parse_message(webData)
+            reply = TextReply(alloter.ContentMaker(recMsg), message=recMsg)
+            xml = reply.render()
+            return xml.send()
         except Exception, Argument:
             return Argument
 
@@ -39,15 +34,10 @@ class Handle(object):
             echostr = data.echostr
             token = config.configs['Token']
 
-            list = [token, timestamp, nonce]
-            list.sort()
-            sha1 = hashlib.sha1()
-            map(sha1.update, list)
-            hashcode = sha1.hexdigest()
-            print "handle/GET func: hanshcode, signature: ", hashcode, signature
-            if hashcode == signature:
-                return echostr
-            else:
-                return ""
+            try:
+                check_signature(token, signature, timestamp, nonce)
+            except InvalidSignatureException:
+                print "Something wrong with signature checking."
+
         except Exception, Argument:
             return Argument
