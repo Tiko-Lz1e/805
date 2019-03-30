@@ -32,5 +32,5 @@ def ContentMaker(message):
         content += hw_file.read()
 #    if message == '课表':
 #        content = 'Du0cncQvn_h-zkuhRXqsIPjYbj0oUK44enQOea8WFLJa3DQa74uIT1CWSHsX_vqf'
-
+    print content
     return content
