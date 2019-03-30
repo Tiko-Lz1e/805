@@ -2,3 +2,4 @@ config_override.py
 venv/
 .idea/
 contents/*.txt
+contents/*.jpeg

@@ -7,7 +7,7 @@ import contents.alloter as alloter
 
 
 def textReply(recmsg):
-    msgReply = TextReply(alloter.ContentMaker(recmsg), message=recmsg)
+    msgReply = TextReply(alloter.ContentMaker(recmsg.Content), message=recmsg)
     xml = msgReply.render()
     return xml.send()
 
@@ -15,13 +15,14 @@ def textReply(recmsg):
 def ReplyType(msg):
     if msg.Content in open('contents/textCmd.txt').read():
         return textReply(msg)
-    elif msg.Content in open('contents/imageCmd.txt').read():
-        return imageReply(msg)
+#    elif msg.Content in open('contents/imageCmd.txt').read():
+#        return imageReply(msg)
     else:
         return 'success'
 
 
 def imageReply(recmsg):
-    msgReply = ImageReply(alloter.ContentMaker(recmsg), message=recmsg)
+    msgReply = ImageReply(message=recmsg)
+    msgReply.media_id = alloter.ContentMaker(recmsg.Content)
     xml = msgReply.render()
     return xml.send()
